@@ -2,6 +2,8 @@
 
 class Database
 {
+    private static $INSTANCE = null;
+    
     private $mysqli,
             $HOST = 'localhost',
             $USER = 'root',
@@ -15,5 +17,17 @@ class Database
             die ('gagal konek');
         }
     }   
+
+    public static function getInstance()
+    {
+        if (!isset( self::$INSTANCE )){
+            self::$INSTANCE = new Database();
+        }
+        
+        return self::$INSTANCE;
+    }
 }
 
+$db = Database::getInstance();
+
+var_dump($db);
