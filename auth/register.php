@@ -1,12 +1,19 @@
 <?php
 
-require_once 'core/init.php';
+    require_once 'core/init.php';
 
-if ( Input::get('submit') ){
-    echo 'lol';
-}
+    if ( Input::get('submit') ){
+        $user->register_user(array(
+            'username' => Input::get('username'),
+            'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT)
+        ));
+    }
 
-require_once 'templates/header.php';
+
+
+
+
+    require_once 'templates/header.php';
 
 ?>
 

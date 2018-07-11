@@ -31,4 +31,39 @@ class Database{
 
         return self::$INSTANCE;
     }
+
+    /**
+     * //fungsi $table disini sbg alamat tabel yg akan diinputkan datanya
+     */
+
+    public function insert($table, $fields = array()) 
+    {   
+        // mengambil kolom
+        $column = implode(", ", array_keys($fields)); // ini akan menggabungkan nilai array,- cek $column
+
+        // mengambil nilai
+        $valueArrays = array();
+        $i = 0;
+        
+        foreach($fields as $key => $values) {
+            if( is_int($values) ){
+                $valueArrays[$i] = $values;
+            } else {
+                $valueArrays[$i] = "'" . $values . "'";
+            }
+            $i++;
+        }
+        
+
+        $values = implode(", ", $valueArrays);
+
+        
+        //INSERT INTO $table (username, password) VALUES ('aku', '123') karena data nya hrs spt ini
+        $query = "INSERT INTO $table ($column) VALUES ($values)";
+
+        // die($query);
+        
+        if($this->mysqli->query($query)) return true;
+        else return false;
+    }
 }
